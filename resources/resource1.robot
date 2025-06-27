@@ -2,8 +2,10 @@
 Library    SeleniumLibrary
 
 *** Variables ***
+${CHROME_OPTIONS}    --user-data-dir=${TEMPDIR}${/}chrome-profile
 ${url}    https://opensource-demo.orangehrmlive.com/web/index.php/auth/login
-${browser}    Chrome
+#${browser}    Chrome
+${browser}    Chrome    options=${CHROME_OPTIONS}
 
 *** Keywords ***
 ce connecte a l'application Orange Demo

@@ -1,4 +1,4 @@
-name: Run Robot Framework Tests
+name: Run Robot Framework Tests and Deploy Reports
 
 on:
 
@@ -38,15 +38,15 @@ jobs:
 
           sudo apt-get update
 
-          sudo apt-get install -y chromium-browser
+          sudo apt-get install -y chromium-browser || true
 
           if ! command -v google-chrome &> /dev/null; then
 
-            sudo ln -s /usr/bin/chromium-browser /usr/bin/google-chrome
+            sudo ln -s /usr/bin/chromium-browser /usr/bin/google-chrome || true
 
           fi
 
-      - name: Run Robot Framework UI & API tests
+      - name: Run Robot Framework Tests
 
         run: |
 
@@ -60,12 +60,16 @@ jobs:
 
           rebot --outputdir results --log log.html --report report.html --output output.xml results/output.xml
 
-      - name: Upload test results and HTML report
+      - name: Make report.html the default index.html
 
-        uses: actions/upload-artifact@v4
+        run: cp results/report.html results/index.html
+
+      - name: Deploy to GitHub Pages
+
+        uses: peaceiris/actions-gh-pages@v3
 
         with:
 
-          name: robot-results
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
-          path: results
+          publish_dir: ./results
