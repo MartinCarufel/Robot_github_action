@@ -12,7 +12,8 @@ Library    SeleniumLibrary
 ce connecte a l'application Orange Demo
     ${options}=    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
     ${tempdir}=    Evaluate    __import__('tempfile').mkdtemp()
-    Call Method    ${options}    add_argument    --user-data-dir=${tempdir}
+    ${arg}=    Set Variable    --user-data-dir=${tempdir}
+    Call Method    ${options}    add_argument    ${arg}
     Create WebDriver    Chrome    chrome_options=${options}
     Go To    ${url}
 
