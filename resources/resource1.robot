@@ -2,15 +2,16 @@
 Library    SeleniumLibrary
 
 *** Variables ***
+
 ${CHROME_OPTIONS}    --user-data-dir=${TEMPDIR}${/}chrome-profile
 ${url}    https://opensource-demo.orangehrmlive.com/web/index.php/auth/login
 #${browser}    Chrome
-${browser}    Chrome    options=${CHROME_OPTIONS}
+${browser}    Chrome    
 
 *** Keywords ***
 ce connecte a l'application Orange Demo
 
-    Open Browser    ${url}    ${browser}
+    Open Browser    ${url}    ${browser}    ${CHROME_OPTIONS}
     Set Browser Implicit Wait    30
     Maximize Browser Window
     Input Text    name=username    Admin
