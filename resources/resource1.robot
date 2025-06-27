@@ -14,7 +14,7 @@ ce connecte a l'application Orange Demo
     ${tempdir}=    Evaluate    __import__('tempfile').mkdtemp()
     ${arg}=    Set Variable    --user-data-dir=${tempdir}
     Call Method    ${options}    add_argument    ${arg}
-    Create WebDriver    Chrome    chrome_options=${options}
+    Create WebDriver    Chrome    options=${options}
     Go To    ${url}
 
 
